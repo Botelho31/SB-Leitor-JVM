@@ -3,6 +3,7 @@
 
     #define ENDLINE std::cout << std::endl;
     #include <iostream>
+    #include <utility>
     #include <fstream>
     #include <vector>
     #include <memory>
@@ -12,9 +13,11 @@
     
     class Reader{
         public:
-            Reader(std::string NameOfFile);
+            Reader();
             ~Reader();
         private:
+            std::pair<int,char*> openFile();
+            std::string getFileName();
     };
 
 #endif
