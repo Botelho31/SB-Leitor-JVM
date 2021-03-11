@@ -8,9 +8,17 @@
     #include <vector>
     #include <memory>
     #include <cstdlib>
-    // #include <bits/stdc++.h> 
+    #include <sstream>
     #include <ctime>
     
+    typedef uint8_t  u1;
+    typedef uint16_t u2;
+    typedef uint32_t u4;
+    typedef uint64_t u8;
+
+    #include "Utils.h"
+    #include "JavaClass.h"
+
     class Reader{
         public:
             Reader();

@@ -1,15 +1,15 @@
 #include "../include/Reader.h"
-#include "../include/Utils.h"
-
-#include <sstream>
 
 Reader::Reader()
 {
-    std::pair<int, char*> buffer = openFile();
-    std::cout << buffer.first << std::endl;
-    for (int i=0; i < buffer.first ; i++) {
-        printf("inputCstr[%d] = %02X\n", i, (unsigned char)buffer.second[i]);
-    }
+    std::pair<int, char*> pairbuffer = openFile();
+    //first length second array
+    ENDLINE;
+
+    std::string hexString = Utils::getHexadecimalFromByte(pairbuffer.second, pairbuffer.first);
+    
+    JavaClass *dotClass = new JavaClass(hexString);
+
 }
 
 
