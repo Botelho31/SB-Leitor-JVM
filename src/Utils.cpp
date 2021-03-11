@@ -15,10 +15,46 @@ std::string Utils::hexSubstrByByte(std::string hex,int start,int size){
     return substring;
 }
 
-int16_t Utils::getShortFromHex(std::string hex){
-    int16_t x;   
-    std::stringstream ss;
-    ss << std::hex << hex;
-    ss >> x;
-    return x;
+u1 * Utils::readUTF8 (FILE* fp, int size) {
+	std::vector<unsigned char> *ret = new std::vector<unsigned char>(size);
+
+	for (int i = 0; i < size; i++) {
+		ret->at(i) = readU1(fp);
+	}
+
+	return (u1*)ret;
+} 
+
+u2 Utils::readU2 (FILE *fp) {
+	unsigned short ret = 0;
+	unsigned char aux;
+
+	fread(&ret, 1, 1, fp);
+	fread(&aux, 1, 1, fp);
+
+	ret <<= 8;
+	ret |= aux;
+
+	return ret;
+}
+
+u1 Utils::readU1 (FILE *fp){
+	unsigned char ret;
+
+	fread(&ret, 1, 1, fp);
+
+	return ret;
+}
+
+u4 Utils::readU4 (FILE *fp){
+	unsigned int ret = 0;
+	unsigned char aux;
+
+	for (int i=0; i<4; i++) {
+		ret <<= 8;
+		fread(&aux, 1, 1, fp);
+		ret |= aux;
+	}
+
+	return ret;
 }

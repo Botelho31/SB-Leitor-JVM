@@ -11,21 +11,18 @@
     #include <sstream>
     #include <ctime>
     
-    typedef uint8_t  u1;
-    typedef uint16_t u2;
-    typedef uint32_t u4;
-    typedef uint64_t u8;
-
+    #include "Types.h"
     #include "Utils.h"
     #include "JavaClass.h"
+    #include "ConstantPool.h"
 
     class Reader{
         public:
             Reader();
             ~Reader();
         private:
-            std::pair<int,char*> openFile();
-            std::string getFileName();
+            FILE * getFile();
+            char* getFileName();
     };
 
 #endif
