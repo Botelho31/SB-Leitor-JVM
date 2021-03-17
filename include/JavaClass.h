@@ -6,6 +6,7 @@
     #define JAVA_H
 
     #include "ConstantPool.h"
+    #include "Interfaces.h"
 
     class JavaClass{
         public:
@@ -19,7 +20,7 @@
             u2 minor_version, major_version, constant_pool_count;
             cp_info* constant_pool;
             u2 access_flags,this_class,super_class,interfaces_count;
-            // u2 interfaces;
+            unsigned short * interfaces;
             u2 fields_count;
             // u2 fields;
             u2 methods_count;

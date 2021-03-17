@@ -26,10 +26,16 @@ JavaClass::JavaClass(FILE *classFile){
 
     std::cout << "Super class -> "<< super_class << std::endl;
 
-    // interfaces_count = Utils::readU2(fp)
-    // interfaces
+    interfaces_count = Utils::readU2(classFile);
 
-    // methods_count = Utils::readU2(fp)
+    std::cout << "Inferface count -> " << interfaces_count << std::endl;
+
+    interfaces =  Interfaces::loadInterface(classFile, interfaces_count)
+
+    fields_count = Utils::readU2(classFile)
+    //fields
+
+    // methods_count = Utils::readU2(classFile)
     // methods
     
     // attributes_count = Utils::readU2(fp)
