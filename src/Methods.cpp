@@ -1,8 +1,7 @@
 #include "../include/Methods.h"
 
 
-Methods::Methods(FILE* fp, ConstantPool *cp) 
-{
+Methods::Methods(FILE* fp, ConstantPool *cp) {
 
 	methods_count = Utils::readU2(fp);
 	for (int i = 0; i < methods_count; i++) 
@@ -15,8 +14,7 @@ Methods::~Methods(){
 
 }
 
-void Methods::printMethods(ConstantPool *cp) 
-{
+void Methods::printMethods(ConstantPool *cp) {
     std::cout << "Methods count -> " << methods_count << std::endl;
 	for (int i = 0; i < methods_count; i++) 
 	{

@@ -1,19 +1,16 @@
 #include "../include/Method.h"
 
-Method::Method(FILE *fp, ConstantPool *cp)
-{
+Method::Method(FILE *fp, ConstantPool *cp){
     access_flags = Utils::readU2(fp) & 0xFFF;
     name_index = Utils::readU2(fp);
     descriptor_index = Utils::readU2(fp);
     attributes = new Attributes(fp, cp);
 }
 
-Method::~Method()
-{
+Method::~Method(){
 }
 
-std::string Method::getMethodFlags(uint16_t flags)
-{
+std::string Method::getMethodFlags(uint16_t flags){
     bool first = true;
     std::string ret = "";
 
@@ -148,8 +145,7 @@ std::string Method::getMethodFlags(uint16_t flags)
     return ret;
 }
 
-void Method::printMethod(ConstantPool *cp)
-{
+void Method::printMethod(ConstantPool *cp){
 
     std::cout << "\tName: cp info #" << name_index << " " << cp->dereferenceIndex(name_index) << std::endl;
 
