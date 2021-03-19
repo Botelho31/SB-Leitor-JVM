@@ -73,7 +73,6 @@ void ConstantPool::printConstantPool(){
 	std::cout << "Constant Pool:" << std::endl;
 	
 	for (int i = 1; i < constant_pool_count; i++) {	
-		// std::cout << "\t[" << i << "] = ";
 		printf("\t [%3d] ",i);
 		std::cout << typeNames[constant_pool[i].tag-1];
 		switch (constant_pool[i].tag) {
