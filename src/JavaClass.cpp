@@ -2,27 +2,33 @@
 
 
 JavaClass::JavaClass(FILE *classFile){
-    magic = Utils::readU4(classFile);
-    if (!validateMagic(magic)){
+    
+    try{
+        magic = Utils::readU4(classFile);
+        if (!validateMagic(magic)){
+            return;
+        }
+
+        minor_version = Utils::readU2(classFile);
+        major_version = Utils::readU2(classFile);
+
+        constant_pool = new ConstantPool(classFile);
+
+        access_flags = Utils::readU2(classFile);
+        this_class = Utils::readU2(classFile);
+        super_class = Utils::readU2(classFile);
+
+        interfaces = new Interfaces(classFile);
+
+        fields = new Fields(classFile,constant_pool);
+
+        methods = new Methods(classFile,constant_pool);
+
+        attributes = new Attributes(classFile, constant_pool);
+    } catch(std::string e){
+        std::cout << e << std::endl;
         return;
     }
-
-    minor_version = Utils::readU2(classFile);
-    major_version = Utils::readU2(classFile);
-
-    constant_pool = new ConstantPool(classFile);
-
-    access_flags = Utils::readU2(classFile);
-    this_class = Utils::readU2(classFile);
-    super_class = Utils::readU2(classFile);
-
-    interfaces = new Interfaces(classFile);
-
-    fields = new Fields(classFile,constant_pool);
-
-    methods = new Methods(classFile,constant_pool);
-
-    attributes = new Attributes(classFile, constant_pool);
     
     printClass();
 	

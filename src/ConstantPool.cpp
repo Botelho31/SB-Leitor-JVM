@@ -7,10 +7,12 @@ ConstantPool::ConstantPool(FILE* fp){
     constant_pool = (cp_info *) malloc(sizeof(cp_info) * constant_pool_count);
 
 	for (int i = 1; i < constant_pool_count; i++){
+
 		constant_pool[i].tag = Utils::readU1(fp);
 		
 		if (constant_pool[i].tag < 0 || constant_pool[i].tag > 12 || constant_pool[i].tag == 2){
-            std::cout << "Erro com o tipo não identificado" << std::endl;
+			std::string exception = "Erro com o tag não identificado - " + std::to_string((int)constant_pool[i].tag); 
+			throw exception;
             return;
 		}
 
@@ -73,7 +75,6 @@ void ConstantPool::printConstantPool(){
 	
 	for (int i = 1; i < constant_pool_count; i++) {	
 		printf("\t [%3d] ",i);
-		std::cout << typeNames[constant_pool[i].tag-1];
 		switch (constant_pool[i].tag){
 			case UTF8: //tem um campo u2 e um array de u1 como info
 				std::cout << "\t" << Utils::showUTF8(constant_pool[i].info[1].array, constant_pool[i].info[0].U2);

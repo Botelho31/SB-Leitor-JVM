@@ -8,9 +8,9 @@ public class ClassFileDemo {
  
 class MessageGenerator {
     public String generateMessage(String username) {
-        if (Objects.nonNull(username))
+        // if (Objects.nonNull(username))
             return "Hello" + username + "!";
-        else
-            return "Hello world!";
+        // else
+        //     return "Hello world!";
     }
 }
