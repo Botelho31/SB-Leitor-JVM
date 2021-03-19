@@ -5,15 +5,18 @@
 #ifndef FIELDS_H
     #define FIELDS_H
 
-    typedef struct {
-        unsigned char accessFlags;
-        unsigned char name_index;
-        unsigned char descriptor_index;
-        unsigned char attributes_count;
-        attribute_info *attributes;
-    } field_info;
+    #include "Attributes.h"
+    #include "Field.h"
 
-field_info *readFields (FILE* fp, int length,cp_info *cp);
+    class Fields{
+            public:
+                Fields(FILE* fp,ConstantPool *cp);
+                ~Fields();
+                void printFields (ConstantPool *cp);
+                std::vector<Field*> fields;
+                u2 fields_count;
+            private:
+    };
 
 
 #endif

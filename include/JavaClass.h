@@ -7,6 +7,9 @@
 
     #include "ConstantPool.h"
     #include "Interfaces.h"
+    #include "Attributes.h"
+    #include "Fields.h"
+    #include "Methods.h"
 
     class JavaClass{
         public:
@@ -15,18 +18,14 @@
             static bool validateMagic(u4 magic);
             void printClass();
 
-
             u4 magic;
-            u2 minor_version, major_version, constant_pool_count;
-            cp_info* constant_pool;
-            u2 access_flags,this_class,super_class,interfaces_count;
-            unsigned short * interfaces;
-            u2 fields_count;
-            // u2 fields;
-            u2 methods_count;
-            // u2 methods;
-            u2 attributes_count;
-            // u2 attributes;
+            u2 minor_version, major_version;
+            ConstantPool *constant_pool;
+            u2 access_flags,this_class,super_class;
+            Interfaces *interfaces;
+            Fields *fields;
+            Methods *methods;
+            Attributes *attributes;
         private:
     };
 

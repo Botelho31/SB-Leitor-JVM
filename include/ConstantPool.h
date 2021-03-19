@@ -18,11 +18,20 @@
     #define INTERFACE_REF 11
     #define NAME_AND_TYPE 12
 
-    typedef struct {
-        u1 tag;
-        ClassLoaderType *info;
-    } cp_info;
-
-    cp_info* loadConstantPool(int lengthCP, FILE* fp);
+    const std::string typeNames[] = {"UTF-8", "-", "Integer", "Float", "Long", "Double", "Class", "String", "Field", "Method", "Interface", "Name and Type"};
+    class ConstantPool{
+            typedef struct {
+                u1 tag;
+                ClassLoaderType *info;
+            } cp_info;
+            public:
+                ConstantPool(FILE* fp);
+                ~ConstantPool();
+                std::string dereferenceIndex (u2 index);
+                void printConstantPool ();
+                cp_info *constant_pool;
+                u2 constant_pool_count;
+            private:
+    };
 
 #endif

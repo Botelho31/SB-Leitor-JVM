@@ -9,44 +9,27 @@ JavaClass::JavaClass(FILE *classFile){
 
     minor_version = Utils::readU2(classFile);
     major_version = Utils::readU2(classFile);
-    constant_pool_count = Utils::readU2(classFile);
 
-    std::cout << "Constant Pool Count -> "<< constant_pool_count << std::endl;
-
-    constant_pool = loadConstantPool(constant_pool_count, classFile);
+    constant_pool = new ConstantPool(classFile);
 
     access_flags = Utils::readU2(classFile);
     this_class = Utils::readU2(classFile);
     super_class = Utils::readU2(classFile);
 
+    interfaces = new Interfaces(classFile);
 
-    std::cout << "Acess flags -> "<< access_flags << std::endl;
+    fields = new Fields(classFile,constant_pool);
 
-    std::cout << "This class -> "<< this_class << std::endl;
+    methods = new Methods(classFile,constant_pool);
 
-    std::cout << "Super class -> "<< super_class << std::endl;
-
-    interfaces_count = Utils::readU2(classFile);
-
-    std::cout << "Inferface count -> " << interfaces_count << std::endl;
-
-    interfaces =  Interfaces::loadInterface(classFile, interfaces_count)
-
-    fields_count = Utils::readU2(classFile)
-    //fields
-
-    // methods_count = Utils::readU2(classFile)
-    // methods
+    attributes = new Attributes(classFile, constant_pool);
     
-    // attributes_count = Utils::readU2(fp)
-    // attributes
-
-
-
-
+    printClass();
+	
+    fclose(classFile);
+	classFile = NULL;
 }
     
-
 JavaClass::~JavaClass(){
 }
 
@@ -70,12 +53,26 @@ void JavaClass::printClass(){
     //      2-byte         attributes_count;
     //      attribute_info attributes[attributes_count];
     //  }
-    std::cout << "Class{" << std::endl;
-    std::cout << "\tmagic " << magic << std::endl;
-    std::cout << "\tminor_version " << minor_version << std::endl;
-    std::cout << "\tmajor_version " << major_version << std::endl;
-    std::cout << "\tconstant_pool_count " << constant_pool_count << std::endl;
-    std::cout << "}" << std::endl;
+
+    std::cout << "Minor version -> "<< minor_version << std::endl;
+    std::cout << "Major version -> "<< major_version << std::endl;
+
+    std::cout << "-------------------------------------" << std::endl;
+    constant_pool->printConstantPool();
+    std::cout << "-------------------------------------" << std::endl;
+    
+    std::cout << "Access flags -> "<< access_flags << std::endl;
+    std::cout << "This class -> "<< this_class << std::endl;
+    std::cout << "Super class -> "<< super_class << std::endl;
+
+    std::cout << "-------------------------------------" << std::endl;
+    interfaces->printInterfaces(constant_pool);
+    std::cout << "-------------------------------------" << std::endl;
+    fields->printFields(constant_pool);
+    std::cout << "-------------------------------------" << std::endl;
+    methods->printMethods(constant_pool);
+    std::cout << "-------------------------------------" << std::endl;
+    attributes->printAttributes(constant_pool);
 }
 
 bool JavaClass::validateMagic(u4 magic){

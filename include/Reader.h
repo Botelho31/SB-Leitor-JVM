@@ -10,6 +10,7 @@
     #include <cstdlib>
     #include <sstream>
     #include <ctime>
+    #include <math.h>
     
     #include "Types.h"
     #include "Utils.h"
