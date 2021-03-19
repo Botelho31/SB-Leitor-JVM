@@ -15,7 +15,10 @@
                 ~Attribute();
                 t_info *readAttributeInfo(FILE *fp, ConstantPool *cp);
                 void printAttribute (ConstantPool *cp,std::string baseTab);
-                attribute_info attribute;
+                t_exception_table *readExceptionHandler(FILE *fp);
+                unsigned short name_index;
+                unsigned int length;
+                t_info *info;
             private:
     };
 

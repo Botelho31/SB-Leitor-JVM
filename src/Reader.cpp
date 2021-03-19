@@ -1,38 +1,38 @@
 #include "../include/Reader.h"
 
-Reader::Reader()
-{
-    FILE * classFile = getFile();
+Reader::Reader(char* filename){
+    FILE * classFile = getFile(filename);
     
+    if(classFile == NULL)
+        return;
+
     JavaClass *dotClass = new JavaClass(classFile);
 
 }
 
-char* Reader::getFileName()
-{
-    char* filename;
-    std::cout << "Digite um path válido para o arquivo .class" << std::endl;
-    ENDLINE
-    // std::cin >> filename;
-    filename = "assets/ClassFileDemo.class";
+// char* Reader::getFileName()
+// {
+//     char* filename;
+//     std::cout << "Digite um path válido para o arquivo .class" << std::endl;
+//     ENDLINE
+//     filename = "assets/ClassFileDemo.class";
 
-    return filename;
-}
+//     return filename;
+// }
 
-FILE * Reader::getFile()
-{
+FILE * Reader::getFile(char* filename){
 
-    char* fileName = getFileName();
-    FILE* fp = fopen(fileName, "rb");
+    // char* fileName = getFileName();
+    FILE* fp = fopen(filename, "rb");
 
 	//verifica se o arquivo conseguiu ser aberto para leitura
 	if (fp == NULL) {
-        return getFile();
+        std::cout << "Arquivo não encontrado" << std::endl;
+        return NULL;
 	}else{
         return fp;
     }
 }
 
-Reader::~Reader()
-{
+Reader::~Reader(){
 }

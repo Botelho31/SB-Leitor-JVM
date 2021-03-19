@@ -25,8 +25,7 @@ u1 * Utils::readUTF8 (FILE* fp, int size) {
 	return (u1*)ret;
 } 
 
-std::string Utils::showUTF8 (unsigned char * s, int size) 
-{
+std::string Utils::showUTF8 (unsigned char * s, int size) {
 	std::vector<unsigned char> *v = (std::vector<unsigned char> *) s;
 	std::string ret = "";
 	size = v->size();
@@ -86,8 +85,7 @@ u4 Utils::readU4 (FILE *fp){
 	return ret;
 }
 
-long Utils::u4ToLong (ClassLoaderType high, ClassLoaderType low) 
-{
+long Utils::u4ToLong (ClassLoaderType high, ClassLoaderType low) {
 	int64_t ret;
 	
 	ret = (((int64_t) high.U4) << 32) | low.U4;
@@ -95,8 +93,7 @@ long Utils::u4ToLong (ClassLoaderType high, ClassLoaderType low)
 	return ret;
 }
 
-double Utils::u4ToDouble (ClassLoaderType high, ClassLoaderType low) 
-{
+double Utils::u4ToDouble (ClassLoaderType high, ClassLoaderType low) {
 	double ret;
 	uint64_t checkBoundaries = u4ToLong(high, low);
 	
@@ -119,8 +116,7 @@ double Utils::u4ToDouble (ClassLoaderType high, ClassLoaderType low)
 	return ret;
 }
 
-float Utils::u4ToFloat (ClassLoaderType in) 
-{
+float Utils::u4ToFloat (ClassLoaderType in) {
 	float ret;
 	
 	int s = ((in.U4 >> 31) == 0) ? 1 : -1;
@@ -133,10 +129,8 @@ float Utils::u4ToFloat (ClassLoaderType in)
 }
 
 
-std::string Utils::getMnemonic(int opcode) 
-{
-  switch(opcode)
-  {
+std::string Utils::getMnemonic(int opcode) {
+  switch(opcode){
     case(0x00): 
       return  "nop";
 
@@ -770,10 +764,8 @@ uint32_t Utils::getNBytesValue(uint8_t n, unsigned char* code, int* index)
   return value;
 }
 
-void Utils::getOpcodeParams(unsigned char* code, int* index)
-{
-  switch(code[(*index)++])
-  {
+void Utils::getOpcodeParams(unsigned char* code, int* index){
+  switch(code[(*index)++]){
     case(0x10): //"bipush";
     case(0x15): //"iload";
     case(0x16): //"lload";
@@ -903,8 +895,7 @@ void Utils::getOpcodeParams(unsigned char* code, int* index)
       uint32_t npairs = getNBytesValue(4,code,index);
       std::cout << " " << npairs; 
 
-      for(int i = 0; (unsigned int) i < npairs; i++)
-      {
+      for(int i = 0; (unsigned int) i < npairs; i++){
         std::cout << " " << getNBytesValue(4,code,index);
           
         std::cout << " " << getNBytesValue(4,code,index); 

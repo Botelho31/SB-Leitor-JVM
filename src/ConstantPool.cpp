@@ -43,8 +43,7 @@ ConstantPool::ConstantPool(FILE* fp){
 }
 
 std::string ConstantPool::dereferenceIndex (u2 index){
-	switch (constant_pool[index].tag)
-	{
+	switch (constant_pool[index].tag){
 		case UTF8:
 			// Return the string
 			return Utils::showUTF8(constant_pool[index].info[1].array, constant_pool[index].info[0].U2);
@@ -75,7 +74,7 @@ void ConstantPool::printConstantPool(){
 	for (int i = 1; i < constant_pool_count; i++) {	
 		printf("\t [%3d] ",i);
 		std::cout << typeNames[constant_pool[i].tag-1];
-		switch (constant_pool[i].tag) {
+		switch (constant_pool[i].tag){
 			case UTF8: //tem um campo u2 e um array de u1 como info
 				std::cout << "\t" << Utils::showUTF8(constant_pool[i].info[1].array, constant_pool[i].info[0].U2);
 				break;

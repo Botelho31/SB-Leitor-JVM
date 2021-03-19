@@ -19,11 +19,11 @@
 
     class Reader{
         public:
-            Reader();
+            Reader(char* filename);
             ~Reader();
         private:
-            FILE * getFile();
-            char* getFileName();
+            FILE * getFile(char* filename);
+            // char* getFileName();
     };
 
 #endif
