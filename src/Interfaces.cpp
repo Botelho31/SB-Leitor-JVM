@@ -7,7 +7,6 @@ Interfaces::Interfaces(FILE* fp){
 
 	for (int i = 0; i < interfaces_count; i++){
     	interfaces[i] = Utils::readU2(fp);
-	
     }
 }
 
