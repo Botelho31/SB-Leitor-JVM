@@ -1,5 +1,5 @@
-#ifndef READER_H
-    #include "Reader.h"
+#ifndef JAVA_H
+    #include "JavaClass.h"
 #endif
 
 #ifndef UTILS_H
@@ -20,6 +20,9 @@
             static uint32_t getNBytesValue(uint8_t n, unsigned char* code, int* index);
             static std::string getMnemonic(int opcode);
             static void getOpcodeParams(unsigned char* code, int* index);
+            static int checkFloat(float f);
+            static int checkDouble (double d);
+            static std::string double_to_string (double d);
         private:
     };
 

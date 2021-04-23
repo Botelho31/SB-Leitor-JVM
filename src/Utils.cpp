@@ -1,5 +1,84 @@
 #include "../include/Utils.h"
 
+std::string Utils::double_to_string (double d) 
+{
+	std::stringstream ret;
+	switch (checkDouble(d)) {
+		case 0:
+			ret << d;
+			break;
+		case 1:
+			ret << "+Inf";
+			break;
+		case 2:
+			ret << "-Inf";
+			break;
+		case 3:
+			ret << "NaN";
+			break;
+	}
+
+	return ret.str();
+}
+
+
+int Utils::checkFloat(float f) 
+{
+	int ret = 0;
+	element aux;
+	aux.f = f;
+
+	if ((aux.i >= 0x7f800001 && aux.i <= 0x7fffffff) || (aux.i >= 0xff800001 && aux.i <= 0xffffffff)) {
+		ret = 3;
+	} else if (aux.i == 0x7f800000) {
+		ret = 1;
+	} else if (aux.i == 0xff800000) {
+		ret = 2;
+	}
+
+	return ret;
+}
+
+//return 1 for +infinity, 2 for -inifity, 3 for NaN e 0 for number inside bound
+int Utils::checkDouble (double d) {
+	int ret = 0;
+	element aux;
+	aux.d = d;
+
+	if ((aux.l >= 0x7ff0000000000001L && aux.l <= 0x7ffffffffffffL) || (aux.l >= 0xfff0000000000001L && aux.l <= 0xffffffffffffffffL)) {
+		ret = 3;
+	} else if (aux.l == 0x7ff0000000000000L) {
+		ret = 1;
+	} else if (aux.l == 0xfff0000000000000L) {
+		ret = 2;
+	}
+
+	return ret;
+}
+
+std::string float_to_string (float f) 
+{
+	std::stringstream ret;
+	switch (Utils::checkFloat(f)) {
+		case 0:
+			ret << f;
+			break;
+		case 1:
+			ret << "+Inf";
+			break;
+		case 2:
+			ret << "-Inf";
+			break;
+		case 3:
+			ret << "NaN";
+			break;
+	}
+
+	return ret.str();
+}
+
+
+
 std::string Utils::getHexadecimalFromByte(char* array, int size){
     std::string hexstring;
     for (int index = 0; index < size; index++){

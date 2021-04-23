@@ -1,5 +1,5 @@
-#ifndef INTERFACES_H
-    #include "Reader.h"
+#ifndef JAVA_H
+    #include "JavaClass.h"
 #endif
 
 #ifndef INTERFACES_H
