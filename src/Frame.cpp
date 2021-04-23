@@ -27,8 +27,7 @@ FrameStack::FrameStack (JavaClass *l){
 }
 
 void FrameStack::execute(){
-	while (nextInstruction())
-	{
+	while (nextInstruction()){
 		//calls function from functions array
 		Operacoes::run(opcode);
 	}
@@ -36,14 +35,12 @@ void FrameStack::execute(){
 
 bool FrameStack::nextInstruction(){
 	// empty stack?
-	if (threads.empty())
-	{
+	if (threads.empty()){
 		return false;
 	}
 
 	//checks if current method operations is empty
-	if ((threads.top()->pc - threads.top()->m->attributes->attributes[0]->info->code.code) < threads.top()->m->attributes->attributes[0]->info->code.code_length)
-	{
+	if ((threads.top()->pc - threads.top()->m->attributes->attributes[0]->info->code.code) < threads.top()->m->attributes->attributes[0]->info->code.code_length){
 		//get the next opcode to be executed
 		opcode = *threads.top()->pc;
 		//pc plus 1 instruction
@@ -57,8 +54,7 @@ bool FrameStack::nextInstruction(){
 	this->pop();
 
 	//checks if there is any elements left
-	if (threads.empty())
-	{
+	if (threads.empty()){
 		return false;
 	}
 

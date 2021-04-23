@@ -16,8 +16,7 @@ element PilhaOperandos::top_value()
 	element ret;
 
 	//Se pilha estiver vazia, retorna elemento vazio
-	if (this->empty())
-	{
+	if (this->empty()){
 		return ret;
 	}
 
@@ -25,8 +24,7 @@ element PilhaOperandos::top_value()
 	ret.i = this->elementos.top();
 
 	//Se o tipo do valor empilhado � maior que 32bits, concatena os dois primeiros elementos da pilha na variavel de retorno.
-	if (this->tipos.top() == TYPE_LONG || this->tipos.top() == TYPE_DOUBLE || (this->tipos.top() == TYPE_REFERENCE && bits64))
-	{
+	if (this->tipos.top() == TYPE_LONG || this->tipos.top() == TYPE_DOUBLE || (this->tipos.top() == TYPE_REFERENCE && bits64)){
 		uint32_t aux = ret.i;
 		this->elementos.pop();
 		ret.l = int64_t((int64_t(ret.i)<<32) + this->elementos.top());
@@ -40,8 +38,7 @@ element PilhaOperandos::pop()
 {
 	element ret;
 	//Se a pilha estiver vazia, retorna um elemento vazio.
-	if (this->empty())
-	{
+	if (this->empty()){
 		return ret;
 	}
 
@@ -52,8 +49,7 @@ element PilhaOperandos::pop()
 	this->elementos.pop();
 
 	//Se o valor recebendo pop tiver mais de 32bits, da pop em mais um item (um long fica como dois itens na pilha)
-	if (this->tipos.top() == TYPE_LONG || this->tipos.top() == TYPE_DOUBLE || (this->tipos.top() == TYPE_REFERENCE && bits64))
-	{
+	if (this->tipos.top() == TYPE_LONG || this->tipos.top() == TYPE_DOUBLE || (this->tipos.top() == TYPE_REFERENCE && bits64)){
 		this->elementos.pop();
 	}
 
@@ -79,8 +75,7 @@ std::string PilhaOperandos::getString ()
 	std::stringstream ret;
 
 	//Switch no tipo do elemento do topo da pilha de operandos
-	switch (this->top_type())
-	{
+	switch (this->top_type()){
 		case TYPE_INT:
 			ret << "(int) " << int(this->top_value().i);
 			break;
@@ -107,15 +102,13 @@ std::string PilhaOperandos::getString ()
 void PilhaOperandos::push(int x)
 {
 	//Se chegou no limite da pilha, n�o empilha
-	if (this->size() == max)
-	{
+	if (this->size() == max){
 		throw std::out_of_range("Excedeu o limite maximo da pilha!");
 	}
 
 	//empilha o tipo int na pilha de tipos
 	this->tipos.push(TYPE_INT);
-	if (!typePushed)
-	{
+	if (!typePushed){
 		this->tiposReais.push(RT_INT);
 	}
 
@@ -128,8 +121,7 @@ void PilhaOperandos::push(int x)
 void PilhaOperandos::push(float x)
 {
 	//Se chegou no limite da pilha, n�o empilha
-	if (this->size() == max)
-	{
+	if (this->size() == max){
 		throw std::out_of_range("Excedeu o limite maximo da pilha!");
 	}
 
@@ -150,8 +142,7 @@ void PilhaOperandos::push(float x)
 void PilhaOperandos::push(double x)
 {
 	//Se n�o houver 2 espa�os dispon�veis na pilha, n�o empilha
-	if (this->size()+1 >= max)
-	{
+	if (this->size()+1 >= max){
 		throw std::out_of_range("Excedeu o limite maximo da pilha!");
 	}
 
@@ -160,8 +151,7 @@ void PilhaOperandos::push(double x)
 
 	//empilha o tipo double na pilha de tipos
 	this->tipos.push(TYPE_DOUBLE);
-	if (!typePushed)
-	{
+	if (!typePushed){
 		this->tiposReais.push(RT_DOUBLE);
 	}
 
@@ -180,15 +170,13 @@ void PilhaOperandos::push(int64_t _x)
 {
 	uint64_t x = _x;
 	//Se n�o houver 2 espa�os dispon�veis na pilha, n�o empilha
-	if (this->size()+1 >= max)
-	{
+	if (this->size()+1 >= max){
 		throw std::out_of_range("Excedeu o limite maximo da pilha!");
 	}
 
 	//empilha o tipo long na pilha de tipos
 	this->tipos.push(TYPE_LONG);
-	if (!typePushed)
-	{
+	if (!typePushed){
 		this->tiposReais.push(RT_LONG);
 	}
 
@@ -205,8 +193,7 @@ void PilhaOperandos::push(int64_t _x)
 void PilhaOperandos::push(bool x)
 {
 	//Se chegou no limite da pilha, n�o empilha
-	if (this->size() == max)
-	{
+	if (this->size() == max){
 		throw std::out_of_range("Excedeu o limite maximo da pilha!");
 	}
 
@@ -215,8 +202,7 @@ void PilhaOperandos::push(bool x)
 
 	//empilha o tipo bool na pilha de tipos
 	this->tipos.push(TYPE_BOOL);
-	if (!typePushed)
-	{
+	if (!typePushed){
 		this->tiposReais.push(RT_BOOL);
 	}
 
@@ -229,8 +215,7 @@ void PilhaOperandos::push(bool x)
 void PilhaOperandos::push(int *x)
 {
 	//Se chegou no limite da pilha, n�o empilha
-	if (this->size()+bits64 >= max)
-	{
+	if (this->size()+bits64 >= max){
 		throw std::out_of_range("Passou do limite maximo da pilha!");
 	}
 
@@ -239,8 +224,7 @@ void PilhaOperandos::push(int *x)
 
 	//empilha o tipo referencia na pilha de tipos
 	this->tipos.push(TYPE_REFERENCE);
-	if (!typePushed)
-	{
+	if (!typePushed){
 		this->tiposReais.push(RT_REFERENCE);
 	}
 
@@ -248,8 +232,7 @@ void PilhaOperandos::push(int *x)
 	this->elementos.push(aux.i);
 
 	//Se a referencia for de 64bits (x64), empilha mais um valor na pilha de valores
-	if (bits64)
-	{
+	if (bits64){
 		aux.l >>= 32;
 		this->elementos.push(aux.i);
 	}
@@ -265,8 +248,7 @@ void PilhaOperandos::push(typedElement te)
 }
 
 void PilhaOperandos::push(element x, uint8_t tipo) {
-	switch (tipo)
-	{
+	switch (tipo){
 		case TYPE_DOUBLE:
 			this->push(x.d);
 			break;
@@ -304,14 +286,12 @@ void PilhaOperandos::printALL()
 {
 	PilhaOperandos aux(this->max);
 
-	while (!this->empty())
-	{
+	while (!this->empty()){
 		std::cout << this->getString() << std::endl;
 		aux.push(this->popTyped());
 	}
 
-	while (!aux.empty())
-	{
+	while (!aux.empty()){
 		this->push(aux.popTyped());
 	}
 }

@@ -55,8 +55,7 @@ typedElement ClasseInstancia::getField(std::string s){
 	typedElement ret;
 	ret.type = TYPE_NOT_SET;
 
-	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++)
-	{
+	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++){
 	   if (i->first == s)
 	   {
 	   		return *(i->second);
@@ -71,12 +70,9 @@ ClasseEstatica *ClasseInstancia::getStatic(){
 }
 
 bool ClasseInstancia::setField(std::string s, typedElement e){
-	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++)
-	{
-	   	if (i->first == s)
-		{
-	   		if (i->second->type == e.type)
-			{
+	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++){
+	   	if (i->first == s){
+	   		if (i->second->type == e.type){
 		   		*(i->second) = e;
 		   		return true;
 	   		}
@@ -93,12 +89,9 @@ bool ClasseInstancia::setField(std::string s, typedElement e){
 
 bool ClasseInstancia::setFinals(std::string s, typedElement e)
 {
-	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++)
-	{
-	   	if (i->first == s)
-		{
-	   		if (i->second->type == e.type)
-			{
+	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++){
+	   	if (i->first == s){
+	   		if (i->second->type == e.type){
 		   		*(i->second) = e;
 		   		return true;
 	   		}
@@ -112,10 +105,8 @@ bool ClasseInstancia::setFinals(std::string s, typedElement e)
 	return false;
 }
 
-void ClasseInstancia::show()
-{
-	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++)
-	{
+void ClasseInstancia::show(){
+	for (std::map<std::string, typedElement*>::const_iterator i = localFields.begin(); i != localFields.end(); i++){
 	   std::cout << i->first << std::endl;
 	}
 }

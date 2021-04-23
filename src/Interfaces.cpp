@@ -17,8 +17,7 @@ Interfaces::~Interfaces(){
 void Interfaces::printInterfaces (ConstantPool *cp)
 {
 	std::cout << "Inferface count -> " << interfaces_count << std::endl;
-	for (int i = 0; i < interfaces_count; i++)
-	{
+	for (int i = 0; i < interfaces_count; i++){
 		std::cout << "\tInterface " << i << ": " << cp->dereferenceIndex(interfaces[i]) << std::endl;
 	}
 }

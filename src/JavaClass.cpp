@@ -1,8 +1,7 @@
 #include "../include/JavaClass.h"
 
 
-JavaClass::JavaClass(char *in) 
-{
+JavaClass::JavaClass(char *in){
 	if (in) {	
 		fileName = in;
 	}
@@ -22,11 +21,9 @@ JavaClass::JavaClass(std::string in) {
 JavaClass::~JavaClass(){
 }
 
-int JavaClass::run() 
-{	
+int JavaClass::run(){	
 	//carrega o bytecode na classe e verifica se nao retornou erro
-	if(load() == 0) 
-	{
+	if(load() == 0){
 		//imprime o bytecode lido
 		printClass();
 	}
@@ -35,8 +32,7 @@ int JavaClass::run()
 	return this->status;
 }
 
-int JavaClass::load() 
-{
+int JavaClass::load(){
 	int checkCP;
 
 	if (!fileName){
@@ -69,8 +65,7 @@ int JavaClass::load()
 	this_class = Utils::readU2(classFile);
 
 	//verifica se o nome do arquivo bate com o nome da class definida no bytecode
-	if (!checkThisClass()) 
-	{
+	if (!checkThisClass()){
 		std::cerr << getError(INVALID_NAME);
 		return (status = INVALID_NAME);
 	}
@@ -100,20 +95,16 @@ bool JavaClass::findMain()
 {
 	bool encontrou = false;
 
-	for (int i = 0; i < getMethodsCount(); i++) 
-	{
+	for (int i = 0; i < getMethodsCount(); i++){
 		int name = methods->methods[i]->name_index;
 		int desc = methods->methods[i]->descriptor_index;
 		int flags = methods->methods[i]->access_flags;
 		
 		//verifica se o nome do metodo se encontra dentro das referencias das constantes
-		if ("main" == constant_pool->dereferenceIndex(name)) 
-		{
+		if ("main" == constant_pool->dereferenceIndex(name)){
 			//verifica se o descritor do metodo esta correto
-			if ("([Ljava/lang/String;)V" == constant_pool->dereferenceIndex(desc)) 
-			{
-				if ((flags & 0x09) == 0x09) 
-				{
+			if ("([Ljava/lang/String;)V" == constant_pool->dereferenceIndex(desc)){
+				if ((flags & 0x09) == 0x09){
 					mainMethod = i;
 					encontrou = true;
 					break;
@@ -127,18 +118,15 @@ bool JavaClass::findMain()
 }
 
 
-bool JavaClass::findClinit() 
-{
+bool JavaClass::findClinit(){
 	bool encontrou = false;
 
-	for (int i = 0; i < methods->methods_count; i++) 
-	{
+	for (int i = 0; i < methods->methods_count; i++){
 		//pega o nome do metodo
 		int name = methods->methods[i]->name_index;
 		
 		//verifica se o nome do metodo se encontra nas constantes
-		if ("<clinit>" == constant_pool->dereferenceIndex(name)) 
-		{
+		if ("<clinit>" == constant_pool->dereferenceIndex(name)){
 			clinit = i;
 			encontrou = true;
 			break;
@@ -203,15 +191,12 @@ bool JavaClass::validateMagic(u4 magic){
     
 }
 
-bool JavaClass::validExtension () 
-{
+bool JavaClass::validExtension (){
 	std::string aux = "", auxFilename(this->fileName);
 	int size = auxFilename.size();
 
-	if (size > 7) 
-	{
-		for (int i = size-6; i < size; i++) 
-		{
+	if (size > 7){
+		for (int i = size-6; i < size; i++){
 			aux += auxFilename[i];
 		}
 	}
@@ -219,37 +204,30 @@ bool JavaClass::validExtension ()
 	return aux == ".class";
 }
 
-bool JavaClass::hasMain () 
-{
+bool JavaClass::hasMain (){
 	//retorna valor de foundMain
 	return foundMain;
 }
 
-bool JavaClass::hasClinit () 
-{
+bool JavaClass::hasClinit (){
 	//retorna o valor de foundClinit
 	return foundClinit;
 }
 
-Method* JavaClass::getMain() 
-{
-	if (foundMain) 
-	{
+Method* JavaClass::getMain(){
+	if (foundMain){
 		return methods->methods[mainMethod];
 	} 
-	else 
-	{
+	else{
 		throw std::runtime_error("Nao foi encontrado um metodo main!\n");
 	}
 }
 
-Method* JavaClass::getClinit() 
-{
+Method* JavaClass::getClinit(){
 	return methods->methods[clinit];
 }
 
-bool JavaClass::checkThisClass () 
-{
+bool JavaClass::checkThisClass (){
 	int auxPos;
 	
 	std::string auxFilename(this->fileName);
@@ -261,16 +239,14 @@ bool JavaClass::checkThisClass ()
 	//remove nomes de pastas no Windows
 	auxPos = auxFilename.find("\\");
 
-	while(auxPos >= 0 && (unsigned int) auxPos <= auxFilename.size()) 
-	{
+	while(auxPos >= 0 && (unsigned int) auxPos <= auxFilename.size()){
 		auxFilename = auxFilename.substr(auxPos+1);
 		auxPos = auxFilename.find("\\");
 	}
 
 	//remove nomes de pastas no Linux
 	auxPos = auxFilename.find("/");
-	while(auxPos >= 0 && (unsigned int) auxPos <= auxFilename.size()) 
-	{
+	while(auxPos >= 0 && (unsigned int) auxPos <= auxFilename.size()){
 		auxFilename = auxFilename.substr(auxPos+1);
 		auxPos = auxFilename.find("/");
 	}
@@ -278,16 +254,13 @@ bool JavaClass::checkThisClass ()
 	return (auxClass == auxFilename);
 }
 
-int JavaClass::getStatus () 
-{
+int JavaClass::getStatus (){
 	return status;
 }
 
-std::string JavaClass::getError(int error) 
-{
+std::string JavaClass::getError(int error){
 	std::string ret = "";
-	switch (error) 
-	{
+	switch (error){
 		case MISSING_ARGUMENT:
 				ret = "ERRO: Argumento passado invalido!\n";
 				break;
@@ -312,26 +285,23 @@ std::string JavaClass::getError(int error)
 	return ret;
 }
 
-ConstantPool* JavaClass::getCP () const 
+ConstantPool* JavaClass::getCP() const 
 {
 	return constant_pool;
 }
 
-u2 JavaClass::getLengthCP () 
-{
+u2 JavaClass::getLengthCP (){
 	return constant_pool->constant_pool_count;
 }
 
-char *JavaClass::getPath () 
-{
+char *JavaClass::getPath (){
 	std::string path = "", auxFilename(this->fileName);
 	char *caminho_arquivo;
 	int auxPos;
 
 	//navega pelas pastas do windows
 	auxPos = path.find("\\");
-	while(auxPos >= 0 && (unsigned int) auxPos <= path.size()) 
-	{
+	while(auxPos >= 0 && (unsigned int) auxPos <= path.size()){
 		path += auxFilename.substr(0, auxPos+1);
 		auxFilename = auxFilename.substr(auxPos+1);
 		auxPos = auxFilename.find("\\");
@@ -339,8 +309,7 @@ char *JavaClass::getPath ()
 
 	//navega pelas pastas do linux
 	auxPos = auxFilename.find("/");
-	while(auxPos >= 0 && (unsigned int) auxPos <= auxFilename.size()) 
-	{
+	while(auxPos >= 0 && (unsigned int) auxPos <= auxFilename.size()){
 		path += auxFilename.substr(0, auxPos+1);
 		auxFilename = auxFilename.substr(auxPos+1);
 		auxPos = auxFilename.find("/");
@@ -348,8 +317,7 @@ char *JavaClass::getPath ()
 
 	//copia o resulta para a string caminho_arquivo
 	caminho_arquivo = (char *) malloc(sizeof(char) * (path.size() + 1));
-	for (unsigned int i = 0; i < path.size(); i++) 
-	{
+	for (unsigned int i = 0; i < path.size(); i++){
 		caminho_arquivo[i] = path[i];
 	}
 	caminho_arquivo[path.size()] = '\0';
@@ -357,43 +325,34 @@ char *JavaClass::getPath ()
 	return caminho_arquivo;
 }
 
-Methods *JavaClass::getMethods() 
-{
+Methods *JavaClass::getMethods(){
 	return methods;
 }
 
-u2 JavaClass::getMethodsCount() 
-{
+u2 JavaClass::getMethodsCount(){
 	return methods->methods_count;
 }
 
-u2 JavaClass::getThis_class() 
-{
+u2 JavaClass::getThis_class(){
 	return this_class;
 }
 
-u2 JavaClass::getSuper_class() 
-{
+u2 JavaClass::getSuper_class(){
 	return super_class;
 }
 
-u2 JavaClass::getFieldsCount() 
-{
+u2 JavaClass::getFieldsCount(){
 	return fields->fields_count;
 }
 
-Fields *JavaClass::getFields() 
-{
+Fields *JavaClass::getFields(){
 	return fields;
 }
 
-Field* JavaClass::getField(std::string field_name) 
-{
+Field* JavaClass::getField(std::string field_name){
 	//percorre a array com as fields  ate encontrar field desejada
-	for(int i = 0; i < getFieldsCount(); i++) 
-	{
-		if(constant_pool->dereferenceIndex(fields->fields[i]->name_index) == field_name )
-		{
+	for(int i = 0; i < getFieldsCount(); i++){
+		if(constant_pool->dereferenceIndex(fields->fields[i]->name_index) == field_name ){
 			return fields->fields[i]; 
 		}
 	}
@@ -405,24 +364,20 @@ Method* JavaClass::getMethod(std::string name, std::string descriptor)
 {
 	Method* method;
 
-	for(int i = 0; i < methods->methods_count; i++)
-	{
+	for(int i = 0; i < methods->methods_count; i++){
 		method = methods->methods[i];
 		std::string method_name = constant_pool->dereferenceIndex(method->name_index);
 		std::string method_desc = constant_pool->dereferenceIndex(method->descriptor_index);
 
-		if(descriptor == method_desc && name == method_name) 
-		{
+		if(descriptor == method_desc && name == method_name){
 			return methods->methods[i+1];
 		}
 	}
 
-	if(getSuper_class() == 0) 
-	{
+	if(getSuper_class() == 0){
 		return NULL;
 	}
-	else 
-	{
+	else{
 		ClasseEstatica* a = MethodArea::getClass(constant_pool->dereferenceIndex(getSuper_class()));
 		JavaClass* l = a->getDef();
 		
@@ -434,25 +389,21 @@ JavaClass* JavaClass::getClassThatHasSearchedMethod(std::string name, std::strin
 {
 	Method * method;
 
-	for(int i = 0; i < this->methods->methods_count; i++)
-	{
+	for(int i = 0; i < this->methods->methods_count; i++){
 		method = methods->methods[i];
 
 		std::string method_name = this->constant_pool->dereferenceIndex(method->name_index);
 		std::string method_desc = this->constant_pool->dereferenceIndex(method->descriptor_index);
 
-		if(descriptor == method_desc && name == method_name) 
-		{
+		if(descriptor == method_desc && name == method_name){
 			return this;
 		}
 	}
 
-	if(getSuper_class() == 0) 
-	{
+	if(getSuper_class() == 0){
 		return NULL;
 	}
-	else 
-	{
+	else{
 		JavaClass* l = MethodArea::getClass(constant_pool->dereferenceIndex(getSuper_class()))->getDef();
 		return l->getClassThatHasSearchedMethod(name, descriptor);
 	}

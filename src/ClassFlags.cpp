@@ -7,17 +7,14 @@ void showFlags (u2 accessFlags)
 	printf("Flags: ");
 
 	// accessFlags é igual a 0x01
-	if(accessFlags & 0x01)
-	{
+	if(accessFlags & 0x01){
 		first = false;
 		printf("%s", flagNames[0].c_str());
 	}
 
 	// accessFlags é igual a 0x010
-	if(accessFlags & 0x010)
-	{
-		if(first)
-		{
+	if(accessFlags & 0x010){
+		if(first){
 			first = false;
 			printf(", ");
 		}
@@ -26,10 +23,8 @@ void showFlags (u2 accessFlags)
 	}
 
 	// accessFlags é igual a 0x020
-	if(accessFlags & 0x020)
-	{
-		if(first)
-		{
+	if(accessFlags & 0x020){
+		if(first){
 			first = false;
 			//cout << ", ";
 			printf(", ");
@@ -39,10 +34,8 @@ void showFlags (u2 accessFlags)
 	}
 
 	// accessFlags é igual a 0x0200
-	if(accessFlags & 0x0200)
-	{
-		if(first)
-		{
+	if(accessFlags & 0x0200){
+		if(first){
 			first = false;
 			printf(", ");
 		}
@@ -51,10 +44,8 @@ void showFlags (u2 accessFlags)
 	}
 
 	// accessFlags é igual a 0x0400
-	if(accessFlags & 0x0400)
-	{
-		if(first)
-		{
+	if(accessFlags & 0x0400){
+		if(first){
 			first = false;
 
 			printf(", ");

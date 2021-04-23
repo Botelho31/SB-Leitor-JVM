@@ -1,7 +1,6 @@
 #include "../include/Utils.h"
 
-std::string Utils::double_to_string (double d) 
-{
+std::string Utils::double_to_string (double d){
 	std::stringstream ret;
 	switch (checkDouble(d)) {
 		case 0:
@@ -22,8 +21,7 @@ std::string Utils::double_to_string (double d)
 }
 
 
-int Utils::checkFloat(float f) 
-{
+int Utils::checkFloat(float f){
 	int ret = 0;
 	element aux;
 	aux.f = f;
@@ -56,8 +54,7 @@ int Utils::checkDouble (double d) {
 	return ret;
 }
 
-std::string float_to_string (float f) 
-{
+std::string float_to_string (float f){
 	std::stringstream ret;
 	switch (Utils::checkFloat(f)) {
 		case 0:
