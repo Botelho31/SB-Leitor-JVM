@@ -31,8 +31,9 @@ FrameStack::FrameStack (JavaClass *l){
 void FrameStack::execute(){
 	int count = 0;
 	while (nextInstruction()){
-		// threads.top()->operandos->printALL();
-		// std::cout << "Intrução " <<count << " numero: " << opcode << std::endl;
+		ENDLINE;
+		threads.top()->operandos->printALL();
+		std::cout << "Intrução " <<count << " numero: " << opcode << std::endl;
 		count ++;
 		//calls function from functions array
 		Operacoes::run(opcode);

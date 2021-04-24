@@ -1071,10 +1071,15 @@ void Operacoes::iastore()
 
 	if (arrayElement.value.array == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.type != arrayElement.type)
+	if (valor.realType != arrayElement.realType)
 		throw std::runtime_error("ArrayStoreException");
 
-	arrayElement.value.array->data[indice] = &valor;
+	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
+	aux->realType = valor.realType;
+	aux->type = valor.type;
+	aux->value = valor.value;
+
+	arrayElement.value.array->data[indice] = aux;
 }
 
 // Stores a double in the operands stack as a array element
@@ -1086,10 +1091,15 @@ void Operacoes::lastore()
 
 	if (arrayElement.value.array == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.type != arrayElement.type)
+	if (valor.realType != arrayElement.realType)
 		throw std::runtime_error("ArrayStoreException");
 
-	arrayElement.value.array->data[indice] = &valor;
+	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
+	aux->realType = valor.realType;
+	aux->type = valor.type;
+	aux->value = valor.value;
+
+	arrayElement.value.array->data[indice] = aux;
 }
 
 // Stores a float in the operands stack as a array element
@@ -1101,10 +1111,15 @@ void Operacoes::fastore()
 
 	if (arrayElement.value.array == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.type != arrayElement.type)
+	if (valor.realType != arrayElement.realType)
 		throw std::runtime_error("ArrayStoreException");
 
-	arrayElement.value.array->data[indice] =  &valor;
+	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
+	aux->realType = valor.realType;
+	aux->type = valor.type;
+	aux->value = valor.value;
+
+	arrayElement.value.array->data[indice] = aux;
 }
 
 // Stores a double in the operands stack as a array element
@@ -3263,46 +3278,70 @@ void Operacoes::func_new()
 
 void Operacoes::newarray()
 {
-	uint8_t type = getNBytesValue(1, &f->pc);
+	uint8_t array_type = getNBytesValue(1, &f->pc);
 	int32_t index = f->operandos->pop().is;
 
 	if (index < 0)
 		throw std::runtime_error("Negative Array Size.");
 
-	int *array;
+	typedElement element;
+	switch (array_type)
+    {
+	 case 4:
+	 	element.realType = RT_BOOL;
+		element.type = TYPE_BOOL;
+        // array_default_value_generic->data.boolean_value = false;
+        break;
+    case 5:
+		element.realType = RT_CHAR;
+		element.type = TYPE_INT;
+        // array_default_value_generic->data.char_value = '\u0000';
+        break;
+    case 6:
+		element.realType = RT_FLOAT;
+		element.type = TYPE_FLOAT;
+        // array_default_value_generic->data.float_value = 0;
+        break;
+    case 7:
+		element.realType = RT_DOUBLE;
+		element.type = TYPE_DOUBLE;
+        // array_default_value_generic->data.double_value = 0;
+        break;
+    case 8:
+		element.realType = RT_BYTE;
+		element.type = TYPE_INT;
+        // array_default_value_generic->data.byte_value = 0;
+        break;
+    case 9:
+		element.realType = RT_SHORT;
+		element.type = TYPE_INT;
+        // array_default_value_generic->data.short_value = 0;
+        break;
+    case 10:
+		element.realType = RT_INT;
+		element.type = TYPE_INT;
+        // array_default_value_generic->data.int_value = 0;
+        break;
+    case 11:
+		element.realType = RT_LONG;
+		element.type = TYPE_LONG;
+        // array_default_value_generic->data.long_value = 0;
+        break;
+    }
 
-	switch (type)
+	Array * array = new Array();
+    array->data = std::vector<typedElement*>(index);
+
+	for (int i = 0; i < index; i++)
 	{
-	case 4:
-		array = (int *)new LocalVariables(index);
-		break;
-	case 5:
-		array = (int *)new std::vector<uint8_t>(index);
-		break;
-	case 6:
-		array = (int *)new LocalVariables(index);
-		break;
-	case 7:
-		array = (int *)new LocalVariables(2 * index, true);
-		break;
-	case 8:
-		array = (int *)new LocalVariables(index);
-		break;
-	case 9:
-		array = (int *)new LocalVariables(index);
-		break;
-	case 10:
-		array = (int *)malloc(sizeof(index));
-		break;
-	case 11:
-		array = (int *)new LocalVariables(2 * index, true);
-		break;
-	default:
-		array = (int *)new LocalVariables(index);
-		break;
+		typedElement *int_value = (typedElement *)malloc(sizeof(typedElement));
+		int_value->type = element.type;
+		int_value->realType = element.realType;
+		array->data.at(i) = int_value;
 	}
-	std::cout << array << std::endl;
-	f->operandos->push(array);
+
+	element.value.array = array;
+	f->operandos->push(element);
 }
 
 void Operacoes::anewarray()
@@ -3314,16 +3353,26 @@ void Operacoes::anewarray()
 	if (count < 0)
 		throw std::runtime_error("Negative Array Size.");
 
-	LocalVariables *array = new LocalVariables(count * (BITS ? 2 : 1), BITS);
+	// LocalVariables *array = new LocalVariables(count * (BITS ? 2 : 1), BITS);
+
+	typedElement element;
+	element.type = TYPE_REFERENCE;
+	element.realType = RT_REFERENCE;
+
+	Array * array = new Array();
+    array->data = std::vector<typedElement*>(count);
+
 	for (int i = 0; i < count; i++)
 	{
-		typedElement aux;
-		aux.type = TYPE_REFERENCE;
-		aux.value.pi = nullptr;
-		array->set(i, aux);
+		typedElement *int_value = (typedElement *)malloc(sizeof(typedElement));
+		int_value->type = element.type;
+		int_value->realType = element.realType;
+		array->data.at(i) = int_value;
 	}
 
-	f->operandos->push((int *)array);
+	element.value.array = array;
+
+	f->operandos->push(element);
 }
 
 void Operacoes::arraylength()
