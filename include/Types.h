@@ -36,6 +36,7 @@
         u1 *array;
     } ClassLoaderType;
 
+    class Array;
     typedef union element_u{
         double d;
         float f;
@@ -48,12 +49,8 @@
         uint8_t b;
         int8_t bs;
         int* pi;
+        Array* array;
     } element;
-
-    typedef struct {
-        int* dims;
-        int* array; 
-    } n_array;
 
     typedef struct typedElement_s {
         element value;

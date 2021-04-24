@@ -16,7 +16,7 @@ Methods::~Methods(){
 void Methods::printMethods(ConstantPool *cp) {
     std::cout << "Methods count -> " << methods_count << std::endl;
 	for (int i = 0; i < methods_count; i++){
-		std::cout << "Method " << index << ":" << std::endl;
+		std::cout << "Method " << i << ":" << std::endl;
 		methods[i]->printMethod(cp);
 	}
 }

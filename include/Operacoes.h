@@ -9,6 +9,7 @@
 #include "MethodArea.h"
 #include "ClasseEstatica.h"
 #include "ClasseInstancia.h"
+#include  "Array.h"
 
 typedef void (*fun)(void);
 
@@ -26,8 +27,8 @@ class Operacoes {
 
         static uint32_t getNBytesValue(uint8_t n, unsigned char** pc);
         static ClasseEstatica* getStaticClassThatHasField(ClasseEstatica* base, std::string field_name);
-        static n_array* getNewMultiArray(std::stack<int> count_dim);
-        static double getValue(n_array array, std::stack<int> access_indexes);
+        static Array* buildMultiArray(int index,uint8_t type,uint8_t realType, std::vector<int> dimension_array);
+        static double getValue(Array array, std::stack<int> access_indexes);
 
         static bool isWide;
         static struct frame_s *f;

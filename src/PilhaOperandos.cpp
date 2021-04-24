@@ -192,7 +192,7 @@ void PilhaOperandos::push(int64_t _x)
 
 void PilhaOperandos::push(bool x)
 {
-	//Se chegou no limite da pilha, n�o empilha
+    //Se chegou no limite da pilha, n�o empilha
 	if (this->size() == max){
 		throw std::out_of_range("Excedeu o limite maximo da pilha!");
 	}

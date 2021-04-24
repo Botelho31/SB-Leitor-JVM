@@ -5,6 +5,8 @@ FrameStack::FrameStack (JavaClass *l){
 	
 	aux->m = l->getMain();
 	aux->cp = l->getCP();
+	// std::cout << "Max Stack -> Frame.cpp " << aux->m->attributes->attributes[0]->info->code.max_stack << std::endl;
+	// std::cout << "Max Locals -> Frame.cpp " << aux->m->attributes->attributes[0]->info->code.max_locals << std::endl;
 	aux->operandos = new PilhaOperandos(aux->m->attributes->attributes[0]->info->code.max_stack);
 	aux->locals = new LocalVariables(aux->m->attributes->attributes[0]->info->code.max_locals);
 	startPC(aux);
@@ -27,7 +29,11 @@ FrameStack::FrameStack (JavaClass *l){
 }
 
 void FrameStack::execute(){
+	int count = 0;
 	while (nextInstruction()){
+		// threads.top()->operandos->printALL();
+		// std::cout << "Intrução " <<count << " numero: " << opcode << std::endl;
+		count ++;
 		//calls function from functions array
 		Operacoes::run(opcode);
 	}
