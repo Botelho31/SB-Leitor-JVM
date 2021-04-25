@@ -45,6 +45,7 @@ int JavaClass::load(){
 		return (status = INVALID_EXTENSION);
 	}
 
+
 	classFile = fopen(fileName, "rb");
 
 	if (classFile == NULL){
@@ -71,6 +72,8 @@ int JavaClass::load(){
 	}
 
 	super_class = Utils::readU2(classFile);
+
+	addSuperClass();
 	
 	interfaces = new Interfaces(classFile);
 	fields = new Fields(classFile,constant_pool);
@@ -89,6 +92,18 @@ int JavaClass::load(){
 
 	//se nao houve nenhum erro retorna 0
 	return (status = 0);
+}
+
+void JavaClass::addSuperClass(){
+	if(getSuper_class() == 0){
+		return;
+	}else{
+		std::string super_classe_nome = constant_pool->dereferenceIndex(super_class);
+		if(super_classe_nome != "java/lang/Object"){
+			super_classe_nome = getPath() + super_classe_nome;
+			MethodArea::addClass(super_classe_nome);
+		}
+	}
 }
 
 bool JavaClass::findMain()
@@ -370,7 +385,7 @@ Method* JavaClass::getMethod(std::string name, std::string descriptor)
 		std::string method_desc = constant_pool->dereferenceIndex(method->descriptor_index);
 
 		if(descriptor == method_desc && name == method_name){
-			return methods->methods[i+1];
+			return method;
 		}
 	}
 
@@ -378,8 +393,10 @@ Method* JavaClass::getMethod(std::string name, std::string descriptor)
 		return NULL;
 	}
 	else{
+
 		ClasseEstatica* a = MethodArea::getClass(constant_pool->dereferenceIndex(getSuper_class()));
 		JavaClass* l = a->getDef();
+
 		
 		return l->getMethod(name, descriptor);
 	}

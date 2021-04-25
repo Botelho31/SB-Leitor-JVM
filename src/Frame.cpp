@@ -31,9 +31,9 @@ FrameStack::FrameStack (JavaClass *l){
 void FrameStack::execute(){
 	int count = 0;
 	while (nextInstruction()){
-		ENDLINE;
-		threads.top()->operandos->printALL();
-		std::cout << "Intrução " <<count << " numero: " << opcode << std::endl;
+		// ENDLINE;
+		// threads.top()->operandos->printALL();
+		// std::cout << "Intrução " << count << " numero: " << Utils::getMnemonic(opcode) << std::endl;
 		count ++;
 		//calls function from functions array
 		Operacoes::run(opcode);
@@ -47,6 +47,7 @@ bool FrameStack::nextInstruction(){
 	}
 
 	//checks if current method operations is empty
+	// threads.top()->m->printMethod(threads.top()->cp);
 	if ((threads.top()->pc - threads.top()->m->attributes->attributes[0]->info->code.code) < threads.top()->m->attributes->attributes[0]->info->code.code_length){
 		//get the next opcode to be executed
 		opcode = *threads.top()->pc;
@@ -91,11 +92,11 @@ void FrameStack::startPC(frame *f){
 	f->pc = f->m->attributes->attributes[0]->info->code.code;
 }
 
-void FrameStack::addFrame(Method m, ConstantPool *cp){
+void FrameStack::addFrame(Method *m, ConstantPool *cp){
 	
 	frame *aux = (frame*) malloc(sizeof(frame));
 
-	aux->m = &m;
+	aux->m = m;
 	aux->cp = cp;
 	aux->operandos = new PilhaOperandos(aux->m->attributes->attributes[0]->info->code.max_stack);
 	aux->locals = new LocalVariables(aux->m->attributes->attributes[0]->info->code.max_locals);
@@ -110,24 +111,25 @@ void FrameStack::addFrame(Method m, ConstantPool *cp){
 	//include reference to frame stack in method area
 	//to be possible to include <clinit> when necessary
 	MethodArea::setFrameStack(this);
+
 	threads.push(aux);
 }
 
-void FrameStack::addFrame(Method *m, ConstantPool *cp){
+void FrameStack::addFrame(Method m, ConstantPool *cp){
 	
-	this->addFrame(*m, cp);
+	this->addFrame(&m, cp);
 }
 
 void FrameStack::setArguments(std::vector<typedElement> param){
 	
 	for (int i = 0, j=0; (unsigned int) i < param.size(); i++, j++){
 		
-		threads.top()->locals->set(j, param[i]);
+		threads.top()->locals->set(i, param[i]);
 		
 		//tests if the i-th argument filled two slots>
 		if (threads.top()->locals->get(j).type == TYPE_LONG || threads.top()->locals->get(j).type == TYPE_DOUBLE || (threads.top()->locals->get(j).type == TYPE_REFERENCE && BITS)){
 			
-			j++;
+			// j++;
 		}
 	}
 }

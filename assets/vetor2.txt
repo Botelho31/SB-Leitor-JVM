@@ -1,0 +1,282 @@
+0  bipush 10
+2  newarray 10
+4  dup
+5  iconst_0
+6  iconst_0
+7  iastore
+8  dup
+9  iconst_1
+10  iconst_0
+11  iastore
+12  dup
+13  iconst_2
+14  iconst_0
+15  iastore
+16  dup
+17  iconst_3
+18  iconst_0
+19  iastore
+20  dup
+21  iconst_4
+22  iconst_0
+23  iastore
+24  dup
+25  iconst_5
+26  iconst_0
+27  iastore
+28  dup
+29  bipush 6
+31  iconst_0
+32  iastore
+33  dup
+34  bipush 7
+36  iconst_0
+37  iastore
+38  dup
+39  bipush 8
+41  iconst_0
+42  iastore
+43  dup
+44  bipush 9
+46  iconst_0
+47  iastore
+48  astore_1
+49  iconst_3
+50  newarray 6
+52  dup
+53  iconst_0
+54  fconst_2
+55  fastore
+56  dup
+57  iconst_1
+58  ldc #2
+60  fastore
+61  dup
+62  iconst_2
+63  ldc #3
+65  fastore
+66  astore_2
+67  iconst_4
+68  newarray 10
+70  dup
+71  iconst_0
+72  bipush 251
+74  iastore
+75  dup
+76  iconst_1
+77  iconst_3
+78  iastore
+79  dup
+80  iconst_2
+81  ldc #4
+83  iastore
+84  dup
+85  iconst_3
+86  ldc #5
+88  iastore
+89  astore_3
+90  iconst_3
+91  newarray 6
+93  dup
+94  iconst_0
+95  fconst_2
+96  fastore
+97  dup
+98  iconst_1
+99  ldc #2
+101  fastore
+102  dup
+103  iconst_2
+104  ldc #3
+106  fastore
+107  astore 4
+109  iconst_3
+110  newarray 8
+112  dup
+113  iconst_0
+114  bipush 254
+116  bastore
+117  dup
+118  iconst_1
+119  iconst_4
+120  bastore
+121  dup
+122  iconst_2
+123  iconst_0
+124  bastore
+125  astore 5
+127  iconst_3
+128  newarray 5
+130  dup
+131  iconst_0
+132  bipush 97
+134  castore
+135  dup
+136  iconst_1
+137  bipush 48
+139  castore
+140  dup
+141  iconst_2
+142  bipush 41
+144  castore
+145  astore 6
+147  iconst_3
+148  newarray 9
+150  dup
+151  iconst_0
+152  bipush 15
+154  sastore
+155  dup
+156  iconst_1
+157  sipush 1000
+160  sastore
+161  dup
+162  iconst_2
+163  bipush 254
+165  sastore
+166  astore 7
+168  iconst_0
+169  istore 8
+171  iload 8
+173  bipush 10
+175  if_icmpge 15
+178  aload_1
+179  iload 8
+181  iload 8
+183  iastore
+184  iinc#8 1
+187  goto 65520
+190  aload_1
+191  iconst_0
+192  dup2
+193  iaload
+194  ldc #6
+196  iadd
+197  iastore
+198  iconst_0
+199  istore 8
+201  iload 8
+203  bipush 10
+205  if_icmpge 19
+208  getstatic #7
+211  aload_1
+212  iload 8
+214  iaload
+215  invokevirtual #8
+218  iinc#8 1
+221  goto 65516
+224  getstatic #7
+227  aload_1
+228  arraylength
+229  invokevirtual #8
+232  getstatic #7
+235  invokevirtual #9
+238  iconst_0
+239  istore 8
+241  iload 8
+243  iconst_3
+244  if_icmpge 19
+247  getstatic #7
+250  aload_2
+251  iload 8
+253  faload
+254  invokevirtual #10
+257  iinc#8 1
+260  goto 65517
+263  getstatic #7
+266  aload_2
+267  arraylength
+268  invokevirtual #8
+271  getstatic #7
+274  invokevirtual #9
+277  iconst_0
+278  istore 8
+280  iload 8
+282  iconst_4
+283  if_icmpge 19
+286  getstatic #7
+289  aload_3
+290  iload 8
+292  iaload
+293  invokevirtual #8
+296  iinc#8 1
+299  goto 65517
+302  getstatic #7
+305  aload_3
+306  arraylength
+307  invokevirtual #8
+310  getstatic #7
+313  invokevirtual #9
+316  iconst_0
+317  istore 8
+319  iload 8
+321  iconst_3
+322  if_icmpge 20
+325  getstatic #7
+328  aload 4
+330  iload 8
+332  faload
+333  invokevirtual #10
+336  iinc#8 1
+339  goto 65516
+342  getstatic #7
+345  aload 4
+347  arraylength
+348  invokevirtual #8
+351  getstatic #7
+354  invokevirtual #9
+357  iconst_0
+358  istore 8
+360  iload 8
+362  iconst_3
+363  if_icmpge 20
+366  getstatic #7
+369  aload 5
+371  iload 8
+373  baload
+374  invokevirtual #8
+377  iinc#8 1
+380  goto 65516
+383  getstatic #7
+386  aload 5
+388  arraylength
+389  invokevirtual #8
+392  getstatic #7
+395  invokevirtual #9
+398  iconst_0
+399  istore 8
+401  iload 8
+403  iconst_3
+404  if_icmpge 20
+407  getstatic #7
+410  aload 6
+412  iload 8
+414  caload
+415  invokevirtual #11
+418  iinc#8 1
+421  goto 65516
+424  getstatic #7
+427  aload 6
+429  arraylength
+430  invokevirtual #8
+433  getstatic #7
+436  invokevirtual #9
+439  iconst_0
+440  istore 8
+442  iload 8
+444  iconst_3
+445  if_icmpge 20
+448  getstatic #7
+451  aload 7
+453  iload 8
+455  saload
+456  invokevirtual #8
+459  iinc#8 1
+462  goto 65516
+465  getstatic #7
+468  aload 7
+470  arraylength
+471  invokevirtual #8
+474  getstatic #7
+477  invokevirtual #9
+480  return

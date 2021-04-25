@@ -74,30 +74,26 @@ std::string PilhaOperandos::getString ()
 {
 	std::stringstream ret;
 
-	if(this->top_value().array != nullptr){
-		ret << "(array)";
-	}else{
-		//Switch no tipo do elemento do topo da pilha de operandos
-		switch (this->top_type()){
-			case TYPE_INT:
-				ret << "(int) " << int(this->top_value().i);
-				break;
-			case TYPE_LONG:
-				ret << "(long) " << long(this->top_value().l);
-				break;
-			case TYPE_FLOAT:
-				ret << "(float) " << this->top_value().f;
-				break;
-			case TYPE_DOUBLE:
-				ret << "(double) " << this->top_value().d;
-				break;
-			case TYPE_BOOL:
-				ret << "(bool) " << (int) this->top_value().b;
-				break;
-			case TYPE_REFERENCE:
-				ret << "(reference) " << this->top_value().pi;
-				break;
-		}
+	//Switch no tipo do elemento do topo da pilha de operandos
+	switch (this->top_type()){
+		case TYPE_INT:
+			ret << "(int) " << int(this->top_value().i);
+			break;
+		case TYPE_LONG:
+			ret << "(long) " << long(this->top_value().l);
+			break;
+		case TYPE_FLOAT:
+			ret << "(float) " << this->top_value().f;
+			break;
+		case TYPE_DOUBLE:
+			ret << "(double) " << this->top_value().d;
+			break;
+		case TYPE_BOOL:
+			ret << "(bool) " << (int) this->top_value().b;
+			break;
+		case TYPE_REFERENCE:
+			ret << "(reference) " << this->top_value().pi;
+			break;
 	}
 
 	return ret.str();
@@ -275,6 +271,8 @@ void PilhaOperandos::push(element x, uint8_t tipo) {
 			break;
 	}
 }
+
+
 
 int PilhaOperandos::getMaxSize()
 {

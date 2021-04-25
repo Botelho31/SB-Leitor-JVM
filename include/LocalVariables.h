@@ -10,15 +10,6 @@
 //to test if addresses are 32 or 64 bits
 #define BITS (sizeof(int *) == 8)
 
-#define INVALID 99
-#define TYPE_NOT_SET 0
-#define TYPE_INT 1
-#define TYPE_FLOAT 2
-#define TYPE_LONG 3
-#define TYPE_DOUBLE 4
-#define TYPE_BOOL 5
-#define TYPE_REFERENCE 6
-
 class LocalVariables{
     public:
         LocalVariables(uint16_t);

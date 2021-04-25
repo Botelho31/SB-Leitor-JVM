@@ -1,0 +1,339 @@
+Classe: gato
+Nome: <init>
+Descricao : (Ljava/lang/String;)V
+Minor version -> 0
+Major version -> 52
+-------------------------------------
+Constant pool count -> 37
+Constant Pool:
+         [  1]  18              // mial
+         [  2]  cp info #9  cp info #19         // animal  <init>  (Ljava/lang/String;Ljava/lang/String;)V
+         [  3]  cp info #20  cp info #21                // java/lang/System  out  Ljava/io/PrintStream;
+         [  4]  cp info #8  cp info #22         // gato  nome  Ljava/lang/String;
+         [  5]  cp info #23  cp info #24                // java/io/PrintStream  print  (Ljava/lang/String;)V
+         [  6]  25              // : 
+         [  7]  cp info #9  cp info #26         // animal  emiteSom  ()V
+         [  8]  27              // gato
+         [  9]  28              // animal
+         [ 10]  <init>
+         [ 11]  (Ljava/lang/String;)V
+         [ 12]  Code
+         [ 13]  LineNumberTable
+         [ 14]  emiteSom
+         [ 15]  ()V
+         [ 16]  SourceFile
+         [ 17]  heranca.java
+         [ 18]  mial
+         [ 19]  cp info #10  cp info #29                // <init>  (Ljava/lang/String;Ljava/lang/String;)V
+         [ 20]  30              // java/lang/System
+         [ 21]  cp info #31  cp info #32                // out  Ljava/io/PrintStream;
+         [ 22]  cp info #33  cp info #34                // nome  Ljava/lang/String;
+         [ 23]  35              // java/io/PrintStream
+         [ 24]  cp info #36  cp info #11                // print  (Ljava/lang/String;)V
+         [ 25]  : 
+         [ 26]  cp info #14  cp info #15                // emiteSom  ()V
+         [ 27]  gato
+         [ 28]  animal
+         [ 29]  (Ljava/lang/String;Ljava/lang/String;)V
+         [ 30]  java/lang/System
+         [ 31]  out
+         [ 32]  Ljava/io/PrintStream;
+         [ 33]  nome
+         [ 34]  Ljava/lang/String;
+         [ 35]  java/io/PrintStream
+         [ 36]  print
+
+-------------------------------------
+Access flags -> 32
+This class -> 8
+Super class -> 9
+-------------------------------------
+Inferface count -> 0
+-------------------------------------
+Fields count -> 0
+-------------------------------------
+Methods count -> 2
+Method 0:
+        Name: cp info #10 <init>
+        Descriptor: cp info # 11(Ljava/lang/String;)V
+
+        Attributes count -> 1
+                Attribute 0: 
+                        Name: cp info #12 Code
+                        Attribute lenght: 36
+                        Misc: 
+                                Max Stack: 3
+                                Max Locals: 2
+                                Code Length: 8
+                        Bytecode: 
+                                0  aload_0
+                                1  aload_1
+                                2  ldc #1
+                                4  invokespecial #2
+                                7  return
+                        Exception Table Length: 0
+                        Attributes count -> 1
+                                Attribute 0: 
+                                        Name: cp info #13 LineNumberTable
+                                        Attribute lenght: 10
+Method 1:
+        Name: cp info #14 emiteSom
+        Descriptor: cp info # 15()V
+        flags: ACC_PUBLIC
+        Attributes count -> 1
+                Attribute 0: 
+                        Name: cp info #12 Code
+                        Attribute lenght: 59
+                        Misc: 
+                                Max Stack: 2
+                                Max Locals: 1
+                                Code Length: 23
+                        Bytecode: 
+                                0  getstatic #3
+                                3  aload_0
+                                4  getfield #4
+                                7  invokevirtual #5
+                                10  getstatic #3
+                                13  ldc #6
+                                15  invokevirtual #5
+                                18  aload_0
+                                19  invokespecial #7
+                                22  return
+                        Exception Table Length: 0
+                        Attributes count -> 1
+                                Attribute 0: 
+                                        Name: cp info #13 LineNumberTable
+                                        Attribute lenght: 18
+-------------------------------------
+Attributes count -> 1
+        Attribute 0: 
+                Name: cp info #16 SourceFile
+                Attribute lenght: 2
+
+Classe: animal
+Nome: <init>
+Descricao : (Ljava/lang/String;Ljava/lang/String;)V
+Minor version -> 0
+Major version -> 52
+-------------------------------------
+Constant pool count -> 34
+Constant Pool:
+         [  1]  cp info #7  cp info #19         // java/lang/Object  <init>  ()V
+         [  2]  cp info #6  cp info #20         // animal  nome  Ljava/lang/String;
+         [  3]  cp info #6  cp info #21         // animal  som  Ljava/lang/String;
+         [  4]  cp info #22  cp info #23                // java/lang/System  out  Ljava/io/PrintStream;
+         [  5]  cp info #24  cp info #25                // java/io/PrintStream  println  (Ljava/lang/String;)V
+         [  6]  26              // animal
+         [  7]  27              // java/lang/Object
+         [  8]  som
+         [  9]  Ljava/lang/String;
+         [ 10]  nome
+         [ 11]  <init>
+         [ 12]  (Ljava/lang/String;Ljava/lang/String;)V
+         [ 13]  Code
+         [ 14]  LineNumberTable
+         [ 15]  emiteSom
+         [ 16]  ()V
+         [ 17]  SourceFile
+         [ 18]  heranca.java
+         [ 19]  cp info #11  cp info #16                // <init>  ()V
+         [ 20]  cp info #10  cp info #9         // nome  Ljava/lang/String;
+         [ 21]  cp info #8  cp info #9          // som  Ljava/lang/String;
+         [ 22]  28              // java/lang/System
+         [ 23]  cp info #29  cp info #30                // out  Ljava/io/PrintStream;
+         [ 24]  31              // java/io/PrintStream
+         [ 25]  cp info #32  cp info #33                // println  (Ljava/lang/String;)V
+         [ 26]  animal
+         [ 27]  java/lang/Object
+         [ 28]  java/lang/System
+         [ 29]  out
+         [ 30]  Ljava/io/PrintStream;
+         [ 31]  java/io/PrintStream
+         [ 32]  println
+         [ 33]  (Ljava/lang/String;)V
+
+-------------------------------------
+Access flags -> 32
+This class -> 6
+Super class -> 7
+-------------------------------------
+Inferface count -> 0
+-------------------------------------
+Fields count -> 2
+        Field 0
+                Nome: som
+                Descritor:  Ljava/lang/String;
+                        Attributes count -> 0
+        Field 1
+                Nome: nome
+                Descritor:  Ljava/lang/String;
+                        Attributes count -> 0
+-------------------------------------
+Methods count -> 2
+Method 0:
+        Name: cp info #11 <init>
+        Descriptor: cp info # 12(Ljava/lang/String;Ljava/lang/String;)V
+
+        Attributes count -> 1
+                Attribute 0: 
+                        Name: cp info #13 Code
+                        Attribute lenght: 51
+                        Misc: 
+                                Max Stack: 2
+                                Max Locals: 3
+                                Code Length: 15
+                        Bytecode: 
+                                0  aload_0
+                                1  invokespecial #1
+                                4  aload_0
+                                5  aload_1
+                                6  putfield #2
+                                9  aload_0
+                                10  aload_2
+                                11  putfield #3
+                                14  return
+                        Exception Table Length: 0
+                        Attributes count -> 1
+                                Attribute 0: 
+                                        Name: cp info #14 LineNumberTable
+                                        Attribute lenght: 18
+Method 1:
+        Name: cp info #15 emiteSom
+        Descriptor: cp info # 16()V
+        flags: ACC_PUBLIC
+        Attributes count -> 1
+                Attribute 0: 
+                        Name: cp info #13 Code
+                        Attribute lenght: 39
+                        Misc: 
+                                Max Stack: 2
+                                Max Locals: 1
+                                Code Length: 11
+                        Bytecode: 
+                                0  getstatic #4
+                                3  aload_0
+                                4  getfield #3
+                                7  invokevirtual #5
+                                10  return
+                        Exception Table Length: 0
+                        Attributes count -> 1
+                                Attribute 0: 
+                                        Name: cp info #14 LineNumberTable
+                                        Attribute lenght: 10
+-------------------------------------
+Attributes count -> 1
+        Attribute 0: 
+                Name: cp info #17 SourceFile
+                Attribute lenght: 2
+
+Classe: cao
+Nome: <init>
+Descricao : (Ljava/lang/String;)V
+Minor version -> 0
+Major version -> 52
+-------------------------------------
+Constant pool count -> 37
+Constant Pool:
+         [  1]  18              // au au
+         [  2]  cp info #9  cp info #19         // animal  <init>  (Ljava/lang/String;Ljava/lang/String;)V
+         [  3]  cp info #20  cp info #21                // java/lang/System  out  Ljava/io/PrintStream;
+         [  4]  cp info #8  cp info #22         // cao  nome  Ljava/lang/String;
+         [  5]  cp info #23  cp info #24                // java/io/PrintStream  print  (Ljava/lang/String;)V
+         [  6]  25              // : 
+         [  7]  cp info #9  cp info #26         // animal  emiteSom  ()V
+         [  8]  27              // cao
+         [  9]  28              // animal
+         [ 10]  <init>
+         [ 11]  (Ljava/lang/String;)V
+         [ 12]  Code
+         [ 13]  LineNumberTable
+         [ 14]  emiteSom
+         [ 15]  ()V
+         [ 16]  SourceFile
+         [ 17]  heranca.java
+         [ 18]  au au
+         [ 19]  cp info #10  cp info #29                // <init>  (Ljava/lang/String;Ljava/lang/String;)V
+         [ 20]  30              // java/lang/System
+         [ 21]  cp info #31  cp info #32                // out  Ljava/io/PrintStream;
+         [ 22]  cp info #33  cp info #34                // nome  Ljava/lang/String;
+         [ 23]  35              // java/io/PrintStream
+         [ 24]  cp info #36  cp info #11                // print  (Ljava/lang/String;)V
+         [ 25]  : 
+         [ 26]  cp info #14  cp info #15                // emiteSom  ()V
+         [ 27]  cao
+         [ 28]  animal
+         [ 29]  (Ljava/lang/String;Ljava/lang/String;)V
+         [ 30]  java/lang/System
+         [ 31]  out
+         [ 32]  Ljava/io/PrintStream;
+         [ 33]  nome
+         [ 34]  Ljava/lang/String;
+         [ 35]  java/io/PrintStream
+         [ 36]  print
+
+-------------------------------------
+Access flags -> 32
+This class -> 8
+Super class -> 9
+-------------------------------------
+Inferface count -> 0
+-------------------------------------
+Fields count -> 0
+-------------------------------------
+Methods count -> 2
+Method 0:
+        Name: cp info #10 <init>
+        Descriptor: cp info # 11(Ljava/lang/String;)V
+
+        Attributes count -> 1
+                Attribute 0: 
+                        Name: cp info #12 Code
+                        Attribute lenght: 36
+                        Misc: 
+                                Max Stack: 3
+                                Max Locals: 2
+                                Code Length: 8
+                        Bytecode: 
+                                0  aload_0
+                                1  aload_1
+                                2  ldc #1
+                                4  invokespecial #2
+                                7  return
+                        Exception Table Length: 0
+                        Attributes count -> 1
+                                Attribute 0: 
+                                        Name: cp info #13 LineNumberTable
+                                        Attribute lenght: 10
+Method 1:
+        Name: cp info #14 emiteSom
+        Descriptor: cp info # 15()V
+        flags: ACC_PUBLIC
+        Attributes count -> 1
+                Attribute 0: 
+                        Name: cp info #12 Code
+                        Attribute lenght: 59
+                        Misc: 
+                                Max Stack: 2
+                                Max Locals: 1
+                                Code Length: 23
+                        Bytecode: 
+                                0  getstatic #3
+                                3  aload_0
+                                4  getfield #4
+                                7  invokevirtual #5
+                                10  getstatic #3
+                                13  ldc #6
+                                15  invokevirtual #5
+                                18  aload_0
+                                19  invokespecial #7
+                                22  return
+                        Exception Table Length: 0
+                        Attributes count -> 1
+                                Attribute 0: 
+                                        Name: cp info #13 LineNumberTable
+                                        Attribute lenght: 18
+-------------------------------------
+Attributes count -> 1
+        Attribute 0: 
+                Name: cp info #16 SourceFile
+                Attribute lenght: 2

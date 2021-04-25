@@ -49,7 +49,6 @@
         uint8_t b;
         int8_t bs;
         int* pi;
-        Array* array;
     } element;
 
     typedef struct typedElement_s {

@@ -14,6 +14,8 @@
 #define TYPE_BOOL 5
 #define TYPE_REFERENCE 6
 
+#include "Array.h"
+
 
 class PilhaOperandos{
     public:

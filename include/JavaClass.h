@@ -21,6 +21,7 @@
     #include <math.h>
     #include <map>
     #include <stack>
+    #include <algorithm>
     
     #include "Types.h"
     #include "Utils.h"
@@ -46,6 +47,7 @@
             bool hasMain();
             bool findMain();
             bool findClinit();
+            void addSuperClass();
             std::string getError(int);
             Method* getMain();
             bool hasClinit();

@@ -647,29 +647,22 @@ void Operacoes::aload_3()
 
 void Operacoes::iaload()
 {
-	element_u value1, value2;
-
-	value1 = f->operandos->pop();
-	value2 = f->operandos->pop();
-	int *ref = value2.pi;
-
-	if (ref == nullptr)
-		throw std::runtime_error("Null pointer");
-	f->operandos->push(ref[value1.i]);
+	int index = f->operandos->pop().i;
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
+		throw std::runtime_error("NullPointerException");
+	f->operandos->push(*arrayRef->data[index]);
 }
 
 void Operacoes::laload()
 {
-	element_u value1, value2;
-	//struct typedElement_s result;
-
-	value1 = f->operandos->pop();
-	value2 = f->operandos->pop();
-	LocalVariables *ref = (LocalVariables *)value2.pi;
-	if (ref == nullptr)
-		throw std::runtime_error("Null pointer");
-
-	f->operandos->push(ref->get(value1.i));
+	int index = f->operandos->pop().i;
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
+		throw std::runtime_error("NullPointerException");
+	f->operandos->push(*arrayRef->data[index]);
 }
 
 void Operacoes::lstore_0()
@@ -836,11 +829,11 @@ void Operacoes::istore_3()
 void Operacoes::faload()
 {
 	int index = f->operandos->pop().i;
-	typedElement arrayRef = f->operandos->popTyped();
-	if (arrayRef.value.array == nullptr)
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-        
-	f->operandos->push(*arrayRef.value.array->data[index]);
+	f->operandos->push(*arrayRef->data[index]);
 
 }
 
@@ -848,11 +841,11 @@ void Operacoes::faload()
 void Operacoes::daload()
 {
 	int index = f->operandos->pop().i;
-	typedElement arrayRef = f->operandos->popTyped();
-	if (arrayRef.value.array == nullptr)
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-        
-	f->operandos->push(*arrayRef.value.array->data[index]);
+	f->operandos->push(*arrayRef->data[index]);
 
 }
 
@@ -860,42 +853,43 @@ void Operacoes::daload()
 void Operacoes::aaload()
 {
 	int index = f->operandos->pop().i;
-	typedElement arrayRef = f->operandos->popTyped();
-	if (arrayRef.value.array == nullptr)
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	f->operandos->push(*arrayRef.value.array->data[index]);
+	f->operandos->push(*arrayRef->data[index]);
 }
 
 // Read the boolean value from a array and push to the operand stack
 void Operacoes::baload()
 {
 	int index = f->operandos->pop().i;
-	typedElement arrayRef = f->operandos->popTyped();
-	if (arrayRef.value.array == nullptr)
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-        
-	f->operandos->push(*arrayRef.value.array->data[index]);
+	f->operandos->push(*arrayRef->data[index]);
 }
 
 // Read the char value from a array and push to the operand stack
 void Operacoes::caload()
 {
 	int index = f->operandos->pop().i;
-	typedElement arrayRef = f->operandos->popTyped();
-	if (arrayRef.value.array == nullptr)
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-        
-	f->operandos->push(*arrayRef.value.array->data[index]);
+	f->operandos->push(*arrayRef->data[index]);
 }
 
 void Operacoes::saload()
 {
 	int index = f->operandos->pop().i;
-	typedElement arrayRef = f->operandos->popTyped();
-	if (arrayRef.value.array == nullptr)
+	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-        
-	f->operandos->push(*arrayRef.value.array->data[index]);
+	f->operandos->push(*arrayRef->data[index]);
 }
 
 void Operacoes::lstore_1()
@@ -1068,10 +1062,11 @@ void Operacoes::iastore()
 	typedElement valor = f->operandos->popTyped();
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
+	Array *arrayRef = (Array*)arrayElement.value.pi;
 
-	if (arrayElement.value.array == nullptr)
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
@@ -1079,7 +1074,7 @@ void Operacoes::iastore()
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 // Stores a double in the operands stack as a array element
@@ -1089,9 +1084,11 @@ void Operacoes::lastore()
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
 
-	if (arrayElement.value.array == nullptr)
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
@@ -1099,7 +1096,7 @@ void Operacoes::lastore()
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 // Stores a float in the operands stack as a array element
@@ -1109,9 +1106,11 @@ void Operacoes::fastore()
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
 
-	if (arrayElement.value.array == nullptr)
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
@@ -1119,7 +1118,7 @@ void Operacoes::fastore()
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 // Stores a double in the operands stack as a array element
@@ -1129,9 +1128,11 @@ void Operacoes::dastore()
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
 
-	if (arrayElement.value.array == nullptr)
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
@@ -1139,7 +1140,7 @@ void Operacoes::dastore()
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 // Stores a reference in the operands stack as a array element
@@ -1149,9 +1150,11 @@ void Operacoes::aastore()
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
 
-	if (arrayElement.value.array == nullptr)
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
@@ -1159,7 +1162,7 @@ void Operacoes::aastore()
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 // Stores a byte in the operands stack as a array element
@@ -1169,9 +1172,11 @@ void Operacoes::bastore()
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
 
-	if (arrayElement.value.array == nullptr)
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
@@ -1179,7 +1184,7 @@ void Operacoes::bastore()
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 // Stores a char in the operands stack as a array element
@@ -1189,17 +1194,19 @@ void Operacoes::castore()
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
 
-	if (arrayElement.value.array == nullptr)
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
-	aux->realType = valor.realType;
+	aux->realType = RT_CHAR;
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 // Stores a short in the operands stack as a array element
@@ -1209,9 +1216,11 @@ void Operacoes::sastore()
 	int indice = f->operandos->pop().i;
 	typedElement arrayElement = f->operandos->popTyped();
 
-	if (arrayElement.value.array == nullptr)
+	Array *arrayRef = (Array*)arrayElement.value.pi;
+
+	if (arrayRef == nullptr)
 		throw std::runtime_error("NullPointerException");
-	if (valor.realType != arrayElement.realType)
+	if (valor.type != arrayRef->data[0]->type)
 		throw std::runtime_error("ArrayStoreException");
 
 	typedElement *aux = (typedElement *)malloc(sizeof(typedElement));
@@ -1219,7 +1228,7 @@ void Operacoes::sastore()
 	aux->type = valor.type;
 	aux->value = valor.value;
 
-	arrayElement.value.array->data[indice] = aux;
+	arrayRef->data[indice] = aux;
 }
 
 void Operacoes::iadd()
@@ -2613,6 +2622,7 @@ ClasseEstatica *Operacoes::getStaticClassThatHasField(ClasseEstatica *base, std:
 	return getStaticClassThatHasField(child, field_name);
 }
 
+
 void Operacoes::getstatic()
 {
 	uint16_t indexByte = getNBytesValue(2, &f->pc);
@@ -2643,7 +2653,7 @@ void Operacoes::getstatic()
 	{
 		f->pc += 3;
 		return;
-	}
+	}    
 
 	ClasseEstatica *static_class = getStaticClassThatHasField(MethodArea::getClass(class_name), name);
 
@@ -2790,6 +2800,7 @@ void Operacoes::invokevirtual()
 			if (descriptor != "()V")
 			{
 				typedElement element = f->operandos->popTyped();
+                
 				switch (element.realType)
 				{
 				case RT_DOUBLE:
@@ -2817,13 +2828,14 @@ void Operacoes::invokevirtual()
 					printf("%d", element.value.ss);
 					break;
 				case RT_INT:
+                    //PRINT O .i OU O .is?
 					printf("%d", element.value.is);
 					break;
 				default:
 					// PRECISA ?
 					std::cout << "" << std::endl;
 					throw std::runtime_error("Dado Invalido.");
-					printf("%d", element.value.is);
+					printf("%d", element.value.i);
 					break;
 				}
 			}
@@ -2926,11 +2938,15 @@ void Operacoes::invokevirtual()
 		}
 
 		typedElement object_element = f->operandos->popTyped();
-		if (object_element.type == TYPE_REFERENCE)
+		if (object_element.type != TYPE_REFERENCE)
 		{
 			throw std::runtime_error("Elemento não é uma referencia para REFERENCE!");
 		}
 		args.insert(args.begin(), object_element);
+
+        std::reverse(args.begin(), args.end());
+
+
 
 		ClasseInstancia *instance = (ClasseInstancia *)object_element.value.pi;
 
@@ -2946,7 +2962,8 @@ void Operacoes::invokevirtual()
 
 		fs->addFrame(
 			instance->getStatic()->getDef()->getMethod(name, descriptor),
-			instance->getStatic()->getDef()->getClassThatHasSearchedMethod(name, descriptor)->getCP());
+			instance->getStatic()->getDef()->getClassThatHasSearchedMethod(name, descriptor)->getCP()
+            );
 		fs->setArguments(args);
 	}
 }
@@ -2976,10 +2993,10 @@ void Operacoes::invokespecial()
 	//checa se é uma das classes simuladas
 	if ((classe == "java/lang/Object" || classe == "java/lang/String") && name == "<init>")
 	{
-		if (classe == "java/lang/String")
-		{
+		// if (classe == "java/lang/String")
+		// {
 			f->operandos->pop();
-		}
+		// }
 		return;
 	}
 
@@ -3033,12 +3050,12 @@ void Operacoes::invokespecial()
 		for (int i = 0; i < count; i++)
 		{
 			typedElement prox = f->operandos->popTyped();
-			parametros.insert(parametros.begin(), prox);
+			parametros.push_back(prox);
 		}
 
 		typedElement object_element = f->operandos->popTyped();
 
-		parametros.insert(parametros.begin(), object_element);
+        parametros.push_back(object_element);
 
 		ClasseInstancia *instance = (ClasseInstancia *)object_element.value.pi;
 
@@ -3065,6 +3082,8 @@ void Operacoes::invokespecial()
 			instance->getStatic()->getDef()->getMethod(name, desc),
 			instance->getStatic()->getDef()->getClassThatHasSearchedMethod(name, desc)->getCP());
 		//adiciona os parâmetros ao vetor de variáveis locais
+		
+		std::reverse(parametros.begin(),parametros.end());
 		fs->setArguments(parametros);
 	}
 }
@@ -3074,6 +3093,7 @@ void Operacoes::invokestatic()
 	frame *auxFrame = threads->top();
 	uint16_t indexbyte = getNBytesValue(2, &f->pc);
 	cp_info cp_element = f->cp->constant_pool[indexbyte];
+
 
 	if (cp_element.tag != METHOD_REF)
 		throw std::runtime_error("Elemento da constant pool apontado por index, não é uma referencia para METHOD_REF!");
@@ -3136,8 +3156,9 @@ void Operacoes::invokestatic()
 		for (int i = 0; i < nargs; i++)
 		{
 			typedElement elemento = f->operandos->popTyped();
-			args.insert(args.begin(), elemento);
+			args.push_back(elemento);
 		}
+
 
 		ClasseEstatica *ce = MethodArea::getClass(class_name);
 
@@ -3161,6 +3182,7 @@ void Operacoes::invokestatic()
 			ce->getDef()->getClassThatHasSearchedMethod(name, descriptor)->getCP());
 
 		//adiciona os parâmetros ao vetor de variáveis locais
+		std::reverse(args.begin(),args.end());
 		fs->setArguments(args);
 	}
 }
@@ -3279,12 +3301,14 @@ void Operacoes::func_new()
 void Operacoes::newarray()
 {
 	uint8_t array_type = getNBytesValue(1, &f->pc);
-	int32_t index = f->operandos->pop().is;
+	int32_t index = f->operandos->pop().i;
 
 	if (index < 0)
 		throw std::runtime_error("Negative Array Size.");
 
 	typedElement element;
+
+
 	switch (array_type)
     {
 	 case 4:
@@ -3330,8 +3354,8 @@ void Operacoes::newarray()
     }
 
 	Array * array = new Array();
-    array->data = std::vector<typedElement*>(index);
-
+	array->data = std::vector<typedElement*>(index);
+    
 	for (int i = 0; i < index; i++)
 	{
 		typedElement *int_value = (typedElement *)malloc(sizeof(typedElement));
@@ -3340,7 +3364,10 @@ void Operacoes::newarray()
 		array->data.at(i) = int_value;
 	}
 
-	element.value.array = array;
+	element.value.pi = (int*)array;
+	element.realType = RT_REFERENCE;
+	element.type = TYPE_REFERENCE;
+
 	f->operandos->push(element);
 }
 
@@ -3370,20 +3397,21 @@ void Operacoes::anewarray()
 		array->data.at(i) = int_value;
 	}
 
-	element.value.array = array;
+	element.value.pi = (int*)array;
 
 	f->operandos->push(element);
 }
 
 void Operacoes::arraylength()
 {
-	LocalVariables *arrayref;
+	Array *arrayRef;
 
-	arrayref = (LocalVariables *)f->operandos->pop().pi;
-	if (arrayref == nullptr)
+	arrayRef = (Array *)f->operandos->pop().pi;
+	if (arrayRef == nullptr)
 		throw std::runtime_error("Null pointer");
 
-	f->operandos->push(arrayref->getMax());
+	int length = arrayRef->data.size();
+	f->operandos->push(length);
 }
 
 void Operacoes::athrow()
@@ -3488,7 +3516,9 @@ void Operacoes::multianewarray()
 
 	Array *arrayValue = buildMultiArray(dimensions - 1, element.type,element.realType, count_dim);
 
-	element.value.array = arrayValue;
+	element.value.pi = (int*)arrayValue;
+	element.realType = RT_REFERENCE;
+	element.type = TYPE_REFERENCE;
 
 	f->operandos->push(element);
 }
@@ -3515,9 +3545,9 @@ Array *Operacoes::buildMultiArray(int index,uint8_t type,uint8_t realType, std::
     for (int i = 0; i < dimension_array[index]; i++)
     {
         typedElement *array_value = (typedElement *)malloc(sizeof(typedElement));
-        array_value->value.array = buildMultiArray(index - 1, type,realType, dimension_array);
-		array_value->type = type;
-		array_value->realType = realType;
+        array_value->value.pi = (int*)buildMultiArray(index - 1, type,realType, dimension_array);
+		array_value->type = TYPE_REFERENCE;
+		array_value->realType = RT_REFERENCE;
 
         array->data.at(i) = array_value;
     }

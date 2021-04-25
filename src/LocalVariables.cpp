@@ -25,14 +25,14 @@ LocalVariables::~LocalVariables () {
 
 void LocalVariables::set(int index, typedElement x) {
 	if (index < 0)
-		throw std::runtime_error("Indice fora dos limites!");
+		throw std::runtime_error("Indice fora dos limites! no set 1");
 
 	index *= 2;
 
 	this->types[index] = x.type;
 	if (this->types[index] == TYPE_LONG || this->types[index] == TYPE_DOUBLE || (this->types[index] == TYPE_REFERENCE && BITS)) {
 		if (index+1 >= realMax)
-			throw std::runtime_error("Indice fora dos limites!");
+			throw std::runtime_error("Indice fora dos limites! no set 2");
 
 		this->elements[index] = x.value.i;
 		this->elements[++index] = int(x.value.l >> 32);
@@ -43,7 +43,7 @@ void LocalVariables::set(int index, typedElement x) {
 		// std::cout << "Real Max set " << realMax << std::endl;
 
 		if (index >= realMax)
-			throw std::runtime_error("Indice fora dos limites!");
+			throw std::runtime_error("Indice fora dos limites! no set 3");
 
 		this->elements[index] = x.value.i;
 	}
@@ -52,12 +52,8 @@ void LocalVariables::set(int index, typedElement x) {
 typedElement LocalVariables::get(int index) const{
 	
 	index *= 2;
-	// std::cout << index << std::endl;
-	// std::cout << "Real Max get " << realMax << std::endl;
 	if (index >= realMax || index < 0){
-		// std::cout << realMax << std::endl;
-		// std::cout << "Max get " << max << std::endl;
-		throw std::runtime_error("Indice fora dos limites!");
+		throw std::runtime_error("Indice fora dos limites! no get");
 
 	}
 
